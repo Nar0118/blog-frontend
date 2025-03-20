@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Inputs } from '../components/Login';
+import { LoginInputTypes } from '../types';
 
 const api = axios.create({
   baseURL: 'http://localhost:5000',
@@ -9,13 +9,13 @@ const api = axios.create({
 });
 
 // Register user
-export const registerUser = async (userData: Inputs) => {
+export const registerUser = async (userData: LoginInputTypes) => {
   const response = await api.post('/register', userData);
   return response.data;
 };
 
 // Login user
-export const loginUser = async (userData: Inputs) => {
+export const loginUser = async (userData: LoginInputTypes) => {
   const response = await api.post('/login', userData);
   return response.data;
 };

@@ -12,6 +12,7 @@ const initialState: IPostsState = {
   },
   status: 'idle',
   error: null,
+  lastFetched: 0,
 };
 
 const postsSlice = createSlice({
@@ -19,11 +20,12 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     setPosts: (state, action: PayloadAction<IPost[]>) => {
-      state.posts = [...action.payload]
+      state.posts = [...action.payload];
+      state.lastFetched = Date.now(); 
     },
     addPosts: (state, action: PayloadAction<IPost[]>) => {
       if (Array.isArray(action.payload)) {
-        state.posts.push(...action.payload);
+      state.posts.push(...action.payload);
       } else {
         state.posts.push(action.payload);
       }
@@ -35,7 +37,7 @@ const postsSlice = createSlice({
       state.posts = state.posts.filter((e) => e.id !== action.payload);
     },
     editPosts: (state, action: PayloadAction<IPost>) => {
-      state.posts = state.posts.map((e) => e.id !== action.payload.id ? e : action.payload);
+      state.posts = state.posts.map((e) => (e.id !== action.payload.id ? e : action.payload));
     },
   },
 });

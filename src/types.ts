@@ -18,6 +18,7 @@ export interface IPostsState {
     pagination: IPagination,
     status: 'idle' | 'loading' | 'failed';
     error: string | null;
+    lastFetched: number
 }
 
 export interface IAuthState {

@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Input, Box, Flex, Link } from '@chakra-ui/react'
 import {
   Table,
   Thead,
@@ -9,6 +8,12 @@ import {
   Th,
   Td,
   TableContainer,
+  useToast,
+  Button,
+  Input,
+  Box,
+  Flex,
+  Link
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form';
 import { debounce } from "lodash";
@@ -17,11 +22,13 @@ import AddPost from './AddPost';
 import { setPosts, editPosts, removePosts, setPagination } from '../redux/postsSlice';
 import { IPost } from '../types';
 
+
 const PostList = () => {
   const [editPostId, setEditPostId] = useState<number | null>(null);
   const { posts, pagination } = useSelector((state: any) => state.posts);
   const [searchTerm, setSearchTerm] = useState("");
   const [abortController, setAbortController] = useState<AbortController | null>(null);
+  const toast = useToast();
 
   const dispatch = useDispatch();
   const {
@@ -60,8 +67,26 @@ const PostList = () => {
     try {
       await deletePost(id);
       dispatch(removePosts(id));
+
+      toast({
+        title: 'Success',
+        description: "Post has been successfully removed!",
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "left-accent",
+      });
     } catch (error) {
-      console.log(error);
+      toast({
+        title: 'Error',
+        description: "Something went wrong!",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "left-accent",
+      });
     }
   }
 
@@ -70,7 +95,19 @@ const PostList = () => {
       try {
         const data = await editPost(post.id, { title: watch('title'), content: watch('content') });
         dispatch(editPosts(data));
-        window.location.reload();
+        toast({
+          title: 'Success',
+          description: "Post has been successfully edited!",
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+          position: "top-right",
+          variant: "left-accent",
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 200);
       } finally {
         setEditPostId(null);
       }

@@ -1,54 +1,99 @@
-# React + TypeScript + Vite
+# Blog Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+This is the frontend for a blog application, built using React, TypeScript, and Vite. It provides user authentication, post management, and protected routes using JWT authentication. The UI is styled with Chakra UI and state management is handled using Redux Toolkit.
 
-Currently, two official plugins are available:
+## Technologies Used
+- **React** (Frontend framework)
+- **TypeScript** (Type safety and development efficiency)
+- **Vite** (Fast development and build tool)
+- **Redux Toolkit** (State management)
+- **React Router** (Client-side routing)
+- **Axios** (HTTP client for API calls)
+- **Chakra UI** (UI component library)
+- **React Hook Form** (Form handling)
+- **React Toastify** (Notifications)
+- **JWT Decode** (Token decoding and validation)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- User authentication (Register, Login, Logout) with JWT
+- CRUD operations for blog posts
+- Protected routes for authenticated users
+- State management with Redux Toolkit
+- API communication with Axios
+- Responsive UI with Chakra UI
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Folder Structure
+```
+blog-frontend/
+│-- src/
+│   ├── components/          # Reusable UI components
+│   │   ├── AddPost.tsx
+│   │   ├── Login.tsx
+│   │   ├── PostDetail.tsx
+│   │   ├── PostList.tsx
+│   │   ├── ProtectedRoute.tsx
+│   │   ├── Toast.tsx
+│   ├── redux/               # Redux store and slices
+│   │   ├── authSlice.ts
+│   │   ├── postsSlice.ts
+│   │   ├── store.ts
+│   ├── services/            # API calls using Axios
+│   │   ├── authApi.ts
+│   │   ├── postApi.ts
+│   ├── App.tsx              # Main application component
+│   ├── main.tsx             # Application entry point
+│   ├── types.ts             # TypeScript types
+│   ├── vite-env.d.ts        # Vite environment declarations
+│-- .env                     # Environment variables
+│-- .gitignore               # Git ignore file
+│-- package.json             # Dependencies and scripts
+│-- README.md                # Project documentation
+│-- vite.config.ts           # Vite configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Installation
+### Prerequisites
+Make sure you have the following installed:
+- **Node.js** (Latest LTS version recommended)
+- **npm** or **yarn**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Steps
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/nar0118/blog-frontend.git
+   cd blog-frontend
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Set up environment variables:
+   Create a `.env` file in the root directory and add the following:
+   ```env
+   VITE_API_URL="http://localhost:5000" #for local
+   VITE_API_URL="https://blog-backend-oq0d.onrender.com" #for deployed version
+   ```
+4. Start the development server:
+   ```sh
+   npm run dev
+   ```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## Usage
+- **Login/Register** to access protected routes.
+- **Add, Edit, Delete, and View** blog posts.
+- **Logout** to clear authentication data.
+
+## Deployment
+To deploy the frontend, use Vercel, Netlify, or any static hosting provider:
+```sh
+npm run build
 ```
+This will generate a `dist/` folder with optimized static files.
+
+## License
+This project is licensed under the MIT License.
+
+## Author
+Developed by **Narek**. Contributions are welcome!
+
